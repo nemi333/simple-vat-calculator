@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator Netto-Brutto</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            text-align: center;
+            padding: 20px;
+            background: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(70,196,252,1) 100%);
+            color: #272727ee;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #dedede;
+            border-radius: 10px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            margin-bottom: 20px;
+            color: #000000;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+        input {
+            margin: 5px 0 15px;
+            padding: 10px;
+            width: calc(100% - 22px);
+            border: 1px solid #2c64ff;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        button {
+            margin: 10px 0;
+            padding: 10px;
+            width: 100%;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Kalkulator Netto-Brutto</h2>
+        <label for="vat">Stawka VAT (%):</label>
+        <input type="number" id="vat" placeholder="Wpisz stawkę VAT">
+        
+        <label for="amount">Kwota:</label>
+        <input type="number" id="amount" placeholder="Wpisz kwotę">
+        
+        <button onclick="convert('netto')">Przelicz na brutto</button>
+        <button onclick="convert('brutto')">Przelicz na netto</button>
+        
+        <h3 id="result"></h3>
+    </div>
+
+    <script>
+        function convert(type) {
+            let vatRate = parseFloat(document.getElementById('vat').value);
+            let amount = parseFloat(document.getElementById('amount').value);
+            let result = document.getElementById('result');
+            
+            if (isNaN(vatRate) || isNaN(amount) || vatRate < 0) {
+                result.innerText = "Podaj poprawne wartości!";
+                return;
+            }
+            
+            if (type === 'netto') {
+                result.innerText = `Kwota brutto: ${(amount * (1 + vatRate / 100)).toFixed(2)} zł`;
+            } else {
+                result.innerText = `Kwota netto: ${(amount / (1 + vatRate / 100)).toFixed(2)} zł`;
+            }
+        }
+    </script>
+</body>
+</html>
